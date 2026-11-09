@@ -15,10 +15,26 @@ not just point estimates.
   day-ahead clearing prices for the Spanish zone. Since the Oct 2025 MTU
   change the files carry 96 quarter-hour periods; older days have 24 hours.
   `data/omie.py` keeps `data/raw/omie_prices.csv` up to date incrementally.
-- **Drivers** (planned): REData (Red Electrica) public API - demand, wind
-  and solar generation, which are known/predictable before the gate closure.
+- **Demand**: REData (Red Electrica) public API, `demanda-tiempo-real` -
+  hourly measured demand (`real`) and REE's own forecast (`prevista`).
+  `data/redata.py` keeps `data/raw/ree_demand.csv` up to date the same
+  incremental way (the API throws transient 400s, so it retries with
+  backoff and picks up failed days on the next run).
+- **Generation mix** (wind/solar): planned next - the REData generation
+  endpoints return errors for now; until that is sorted, demand + calendar
+  + lagged prices carry the features.
+
+Two data notes: 28-29 Apr 2025 is the Iberian blackout (demand collapses
+in the series - real event, kept as-is), and REE's `prevista` values are
+revised intraday, so at feature-build time only the forecast as known at
+the D-1 12:00 gate closure may be used (or lag it), never the final value.
 
 ## Status
 
-Just started: price history backfill done (2023-01-01 to today, ~1,400
-days). Feature engineering, models and walk-forward evaluation next.
+Data layer done: prices 2023-01-01 -> today (~1,400 days, 96 periods since
+the Oct 2025 MTU change) and hourly demand real+forecast for the same
+window. First EDA in `report/` (figures in `report/figures/`): strong
+weekly and seasonal cycles, solar duck curve in spring/summer, ~2%
+negative-price periods, same-day demand explains only part of the level
+(r ~ 0.37), so generation mix and calendar will matter. Feature
+engineering, models and walk-forward evaluation next.
