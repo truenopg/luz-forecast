@@ -4,7 +4,9 @@ One row per (date, hour) with the target price and only information that
 exists before the D-1 12:00 CET gate closure:
 
 - D-1 full price curve: published by OMIE on D-2 ~13:30, so fully known.
-- D-1 demand: only hours 0-11 (published in near real time that morning).
+- D-1 demand: only hours 0-10. Measured 2026-11-10: at 11:29 CET the
+  latest published 5-min value was timestamped 11:20 (~9 min latency),
+  so hour 11's mean is not fully published at the 12:00 gate closure.
 - D-7 / D-14 same-hour price and D-7 same-hour demand.
 - Calendar: hour, weekday, month, Spanish national holidays (approx list).
 
@@ -75,7 +77,7 @@ def build(exploratory: bool = False) -> pd.DataFrame:
 
     px_daily = px.groupby("date").mean()
     df["price_d1_mean"] = lag_daily(px_daily, 1)
-    dem_morning = dem[dem.index.get_level_values("hour") < 12].groupby("date").mean()
+    dem_morning = dem[dem.index.get_level_values("hour") < 11].groupby("date").mean()
     df["demand_d1_morning"] = lag_daily(dem_morning, 1)
 
     if exploratory:

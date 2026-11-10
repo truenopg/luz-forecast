@@ -33,20 +33,23 @@ the D-1 12:00 gate closure may be used (or lag it), never the final value.
 
 `model/features.py` builds the leakage-safe table (one row per date/hour):
 D-1 full price curve (published on D-2), D-7/D-14 same-hour prices, D-7
-same-hour demand, D-1 morning demand (hours 0-11 only), calendar. REE's
-`prevista` series stays out: the public API serves revised values with no
-point-in-time vintage (checked 2026-11-10), so it can only appear in
+same-hour demand, D-1 morning demand (hours 0-10: measured ~9 min
+publication latency on the real-time series, so hour 11 is not complete
+at the 12:00 cutoff), calendar. REE's
+`prevista` series stays out: its values are revised intraday and we found
+no verified point-in-time vintage on the public API (checked 2026-11-10,
+bounded probe), so it is excluded by precaution and can only appear in
 `--exploratory` runs, which are labelled as such.
 
 `model/train.py` compares a gradient-boosted model against the naive
 "same hour last week" benchmark in monthly walk-forward folds (train on
 everything before the month, test the month, roll). Results in
-`report/metrics.json`: overall MAE 20.5 EUR/MWh vs 29.4 naive (RMSE 28.4
-vs 41.7), and the model wins every month until autumn 2026, when the price
+`report/metrics.json`: overall MAE 20.3 EUR/MWh vs 29.36 naive (RMSE 28.25
+vs 41.73), and the model wins every month until autumn 2026, when the price
 regime jumps (~250 EUR/MWh peaks) and the expanding window stops adapting -
 there it ties or loses to the naive. Short-window retraining and regime
 features are the obvious next step. `--exploratory` adds the revised
-prevista demand features: MAE 20.3, a small gain that cannot be trusted
+prevista demand features: MAE 20.17, a small gain that cannot be trusted
 without vintage data.
 
 ## Status
