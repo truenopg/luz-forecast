@@ -29,12 +29,30 @@ in the series - real event, kept as-is), and REE's `prevista` values are
 revised intraday, so at feature-build time only the forecast as known at
 the D-1 12:00 gate closure may be used (or lag it), never the final value.
 
+## Baseline model
+
+`model/features.py` builds the leakage-safe table (one row per date/hour):
+D-1 full price curve (published on D-2), D-7/D-14 same-hour prices, D-7
+same-hour demand, D-1 morning demand (hours 0-11 only), calendar. REE's
+`prevista` series stays out: the public API serves revised values with no
+point-in-time vintage (checked 2026-11-10), so it can only appear in
+`--exploratory` runs, which are labelled as such.
+
+`model/train.py` compares a gradient-boosted model against the naive
+"same hour last week" benchmark in monthly walk-forward folds (train on
+everything before the month, test the month, roll). Results in
+`report/metrics.json`: overall MAE 20.5 EUR/MWh vs 29.4 naive (RMSE 28.4
+vs 41.7), and the model wins every month until autumn 2026, when the price
+regime jumps (~250 EUR/MWh peaks) and the expanding window stops adapting -
+there it ties or loses to the naive. Short-window retraining and regime
+features are the obvious next step. `--exploratory` adds the revised
+prevista demand features: MAE 20.3, a small gain that cannot be trusted
+without vintage data.
+
 ## Status
 
-Data layer done: prices 2023-01-01 -> today (~1,400 days, 96 periods since
-the Oct 2025 MTU change) and hourly demand real+forecast for the same
-window. First EDA in `report/` (figures in `report/figures/`): strong
-weekly and seasonal cycles, solar duck curve in spring/summer, ~2%
-negative-price periods, same-day demand explains only part of the level
-(r ~ 0.37), so generation mix and calendar will matter. Feature
-engineering, models and walk-forward evaluation next.
+Data layer and leakage-safe baseline done; walk-forward shows the model
+beats the naive benchmark except in the autumn-2026 price spike. Next:
+regime handling (shorter windows, recent-level features), then prediction
+intervals and a daily prediction job. Generation mix features still
+blocked on the REData generation endpoints.
