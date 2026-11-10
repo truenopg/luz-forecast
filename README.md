@@ -31,7 +31,14 @@ the D-1 12:00 gate closure may be used (or lag it), never the final value.
 
 ## Baseline model
 
-`model/features.py` builds the leakage-safe table (one row per date/hour):
+`model/features.py` builds the assumption-conditioned leakage-safe table
+(one row per date/hour). Two assumptions back it, verified only for the
+present, not historically: the ~9 min publication latency on the real-time
+demand series is assumed stable over the whole window (measured once,
+2026-11-10), and the real-time demand values are assumed unrevised after
+publication. No official publication contract or vintage archive was found
+to prove either; treat the leakage guarantee as conditioned on these
+assumptions. Features:
 D-1 full price curve (published on D-2), D-7/D-14 same-hour prices, D-7
 same-hour demand, D-1 morning demand (hours 0-10: measured ~9 min
 publication latency on the real-time series, so hour 11 is not complete
