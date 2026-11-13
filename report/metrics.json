@@ -7,125 +7,130 @@
     "bias": -0.96
   },
   "gbm": {
-    "mae": 20.3,
-    "rmse": 28.25,
-    "bias": -2.65
+    "mae": 20.67,
+    "rmse": 29.25,
+    "bias": -3.52
   },
   "folds": [
     {
       "fold": "2025-01",
       "naive_mae": 49.74,
-      "gbm_mae": 21.44
+      "gbm_mae": 21.33
     },
     {
       "fold": "2025-02",
       "naive_mae": 43.03,
-      "gbm_mae": 23.39
+      "gbm_mae": 24.23
     },
     {
       "fold": "2025-03",
       "naive_mae": 31.4,
-      "gbm_mae": 20.77
+      "gbm_mae": 20.53
     },
     {
       "fold": "2025-04",
       "naive_mae": 23.36,
-      "gbm_mae": 18.4
+      "gbm_mae": 17.77
     },
     {
       "fold": "2025-05",
       "naive_mae": 19.92,
-      "gbm_mae": 11.57
+      "gbm_mae": 11.54
     },
     {
       "fold": "2025-06",
       "naive_mae": 24.8,
-      "gbm_mae": 18.1
+      "gbm_mae": 18.0
     },
     {
       "fold": "2025-07",
       "naive_mae": 24.14,
-      "gbm_mae": 16.46
+      "gbm_mae": 17.21
     },
     {
       "fold": "2025-08",
       "naive_mae": 19.66,
-      "gbm_mae": 14.24
+      "gbm_mae": 14.32
     },
     {
       "fold": "2025-09",
       "naive_mae": 23.87,
-      "gbm_mae": 18.72
+      "gbm_mae": 18.05
     },
     {
       "fold": "2025-10",
       "naive_mae": 33.16,
-      "gbm_mae": 22.96
+      "gbm_mae": 21.18
     },
     {
       "fold": "2025-11",
       "naive_mae": 29.34,
-      "gbm_mae": 19.62
+      "gbm_mae": 19.15
     },
     {
       "fold": "2025-12",
       "naive_mae": 29.38,
-      "gbm_mae": 14.44
+      "gbm_mae": 14.29
     },
     {
       "fold": "2026-01",
       "naive_mae": 38.29,
-      "gbm_mae": 20.68
+      "gbm_mae": 20.29
     },
     {
       "fold": "2026-02",
       "naive_mae": 12.14,
-      "gbm_mae": 9.62
+      "gbm_mae": 9.86
     },
     {
       "fold": "2026-03",
       "naive_mae": 40.82,
-      "gbm_mae": 19.08
+      "gbm_mae": 18.43
     },
     {
       "fold": "2026-04",
       "naive_mae": 19.18,
-      "gbm_mae": 14.09
+      "gbm_mae": 13.62
     },
     {
       "fold": "2026-05",
       "naive_mae": 19.11,
-      "gbm_mae": 14.61
+      "gbm_mae": 15.14
     },
     {
       "fold": "2026-06",
       "naive_mae": 22.38,
-      "gbm_mae": 14.77
+      "gbm_mae": 15.01
     },
     {
       "fold": "2026-07",
       "naive_mae": 27.37,
-      "gbm_mae": 20.8
+      "gbm_mae": 20.14
     },
     {
       "fold": "2026-08",
       "naive_mae": 25.15,
-      "gbm_mae": 20.92
+      "gbm_mae": 21.98
     },
     {
       "fold": "2026-09",
       "naive_mae": 32.7,
-      "gbm_mae": 32.09
+      "gbm_mae": 35.51
     },
     {
       "fold": "2026-10",
       "naive_mae": 52.17,
-      "gbm_mae": 52.64
+      "gbm_mae": 57.16
     },
     {
       "fold": "2026-11",
       "naive_mae": 42.71,
-      "gbm_mae": 44.88
+      "gbm_mae": 54.95
     }
-  ]
+  ],
+  "interval_80": {
+    "raw_coverage": 0.551,
+    "conformal_coverage": 0.774,
+    "conformal_mean_width": 56.9
+  }
 }

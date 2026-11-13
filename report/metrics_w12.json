@@ -1,0 +1,131 @@
+{
+  "label": "leakage-safe baseline",
+  "n_rows": 16119,
+  "naive": {
+    "mae": 29.36,
+    "rmse": 41.73,
+    "bias": -0.96
+  },
+  "gbm": {
+    "mae": 22.17,
+    "rmse": 30.39,
+    "bias": -2.83
+  },
+  "folds": [
+    {
+      "fold": "2025-01",
+      "naive_mae": 49.74,
+      "gbm_mae": 26.76
+    },
+    {
+      "fold": "2025-02",
+      "naive_mae": 43.03,
+      "gbm_mae": 29.98
+    },
+    {
+      "fold": "2025-03",
+      "naive_mae": 31.4,
+      "gbm_mae": 20.59
+    },
+    {
+      "fold": "2025-04",
+      "naive_mae": 23.36,
+      "gbm_mae": 16.61
+    },
+    {
+      "fold": "2025-05",
+      "naive_mae": 19.92,
+      "gbm_mae": 13.31
+    },
+    {
+      "fold": "2025-06",
+      "naive_mae": 24.8,
+      "gbm_mae": 18.05
+    },
+    {
+      "fold": "2025-07",
+      "naive_mae": 24.14,
+      "gbm_mae": 18.96
+    },
+    {
+      "fold": "2025-08",
+      "naive_mae": 19.66,
+      "gbm_mae": 15.59
+    },
+    {
+      "fold": "2025-09",
+      "naive_mae": 23.87,
+      "gbm_mae": 17.27
+    },
+    {
+      "fold": "2025-10",
+      "naive_mae": 33.16,
+      "gbm_mae": 21.47
+    },
+    {
+      "fold": "2025-11",
+      "naive_mae": 29.34,
+      "gbm_mae": 22.7
+    },
+    {
+      "fold": "2025-12",
+      "naive_mae": 29.38,
+      "gbm_mae": 16.4
+    },
+    {
+      "fold": "2026-01",
+      "naive_mae": 38.29,
+      "gbm_mae": 22.14
+    },
+    {
+      "fold": "2026-02",
+      "naive_mae": 12.14,
+      "gbm_mae": 21.39
+    },
+    {
+      "fold": "2026-03",
+      "naive_mae": 40.82,
+      "gbm_mae": 19.29
+    },
+    {
+      "fold": "2026-04",
+      "naive_mae": 19.18,
+      "gbm_mae": 14.73
+    },
+    {
+      "fold": "2026-05",
+      "naive_mae": 19.11,
+      "gbm_mae": 15.44
+    },
+    {
+      "fold": "2026-06",
+      "naive_mae": 22.38,
+      "gbm_mae": 16.02
+    },
+    {
+      "fold": "2026-07",
+      "naive_mae": 27.37,
+      "gbm_mae": 29.43
+    },
+    {
+      "fold": "2026-08",
+      "naive_mae": 25.15,
+      "gbm_mae": 24.34
+    },
+    {
+      "fold": "2026-09",
+      "naive_mae": 32.7,
+      "gbm_mae": 27.75
+    },
+    {
+      "fold": "2026-10",
+      "naive_mae": 52.17,
+      "gbm_mae": 50.76
+    },
+    {
+      "fold": "2026-11",
+      "naive_mae": 42.71,
+      "gbm_mae": 54.75
+    }
+  ]
+}

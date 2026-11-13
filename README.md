@@ -51,18 +51,30 @@ bounded probe), so it is excluded by precaution and can only appear in
 `model/train.py` compares a gradient-boosted model against the naive
 "same hour last week" benchmark in monthly walk-forward folds (train on
 everything before the month, test the month, roll). Results in
-`report/metrics.json`: overall MAE 20.3 EUR/MWh vs 29.36 naive (RMSE 28.25
-vs 41.73), and the model wins every month until autumn 2026, when the price
-regime jumps (~250 EUR/MWh peaks) and the expanding window stops adapting -
-there it ties or loses to the naive. Short-window retraining and regime
-features are the obvious next step. `--exploratory` adds the revised
-prevista demand features: MAE 20.17, a small gain that cannot be trusted
-without vintage data.
+`report/metrics.json`: overall MAE 20.7 EUR/MWh vs 29.4 naive (RMSE 29.2
+vs 41.7), and the model wins every month until autumn 2026, when the price
+regime jumps (~250 EUR/MWh peaks) and no leakage-safe feature anticipates
+the level shift - there it ties or loses to the naive. Two attempted
+fixes, both documented as negatives: a rolling 24-month window
+(`--window-months 24`, overall 20.9, autumn folds no better) and 12-month
+(overall 22.2, mixed autumn folds). The spike looks unpredictable from
+this feature set; the honest answer is an interval, not a better point.
+
+`--intervals` fits 10/90% quantile GBMs. Raw coverage is 55% against the
+80% target (regime shifts break the quantiles), so a split-conformal
+correction widens each fold's band by the 80% quantile of the misses seen
+in previous test folds - walk-forward legitimate - reaching 77.4%
+coverage at ~57 EUR/MWh mean width. The November spikes still poke out
+of the band, which is exactly what the coverage number says.
+
+`--exploratory` adds the revised prevista demand features: MAE 20.2, a
+small gain that cannot be trusted without vintage data.
 
 ## Status
 
-Data layer and leakage-safe baseline done; walk-forward shows the model
-beats the naive benchmark except in the autumn-2026 price spike. Next:
-regime handling (shorter windows, recent-level features), then prediction
-intervals and a daily prediction job. Generation mix features still
-blocked on the REData generation endpoints.
+Data layer, assumption-conditioned leakage-safe baseline, walk-forward
+evaluation and conformal prediction intervals done. The model beats the
+naive benchmark except in the autumn-2026 spike, where no tested variant
+fixes it - kept as a documented negative result with the interval
+carrying the uncertainty instead. Generation mix features still blocked
+on the REData generation endpoints.

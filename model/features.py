@@ -77,6 +77,7 @@ def build(exploratory: bool = False) -> pd.DataFrame:
 
     px_daily = px.groupby("date").mean()
     df["price_d1_mean"] = lag_daily(px_daily, 1)
+    df["price_mean_d7"] = lag_daily(px_daily.rolling(7).mean(), 1)  # recent level
     dem_morning = dem[dem.index.get_level_values("hour") < 11].groupby("date").mean()
     df["demand_d1_morning"] = lag_daily(dem_morning, 1)
 
