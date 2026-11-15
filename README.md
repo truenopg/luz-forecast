@@ -32,13 +32,20 @@ the D-1 12:00 gate closure may be used (or lag it), never the final value.
 ## Baseline model
 
 `model/features.py` builds the assumption-conditioned leakage-safe table
-(one row per date/hour). Two assumptions back it, verified only for the
-present, not historically: the ~9 min publication latency on the real-time
-demand series is assumed stable over the whole window (measured once,
-2026-11-10), and the real-time demand values are assumed unrevised after
-publication. No official publication contract or vintage archive was found
-to prove either; treat the leakage guarantee as conditioned on these
-assumptions. Features:
+(one row per date/hour). Official timing: day-ahead gate closes 12:00 CET
+on D-1 and final results publish ~12:57 (OMIE market description; Modo
+Energy's Spain market-sequence note, Apr 2026), with 96 quarter-hour
+periods since 1 Oct 2025 - matching the data. A production forecast would
+have to be produced inside 12:00-12:57 D-1.
+
+Two assumptions back the leakage claim, verified only partially: the ~9 min
+publication latency on the real-time demand series is assumed stable over
+the whole window (measured once, 2026-11-10), and the real-time demand
+values are assumed unrevised after publication. A bounded spot-check
+(2026-11-15): two old sample days re-fetched from REE came back identical
+to the 2026-11-09 download, so no retroactive revision in that span - but
+what was published at 12:00 on each historical D-1 is unprovable without a
+vintage archive. Treat the backtest as assumption-conditioned. Features:
 D-1 full price curve (published on D-2), D-7/D-14 same-hour prices, D-7
 same-hour demand, D-1 morning demand (hours 0-10: measured ~9 min
 publication latency on the real-time series, so hour 11 is not complete
